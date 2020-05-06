@@ -1,1 +1,6 @@
-Hi
+1. Modify path in docker-compose.yml
+
+2. Launch contener
+    cd docker
+    docker-compose build
+    docker-compose up
