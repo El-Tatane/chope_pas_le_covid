@@ -6,5 +6,6 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - D:\CloudStation\Cours\4ISD\chope_pas_le_covid:/home/covid/src
-      - D:\data\covid:/home/covid/dataset
+      - /home/brami/Bureau/projet_zac_Antoine/data:/home/covid/dataset
+      - /home/brami/Bureau/projet_zac_Antoine/chope_pas_le_covid:/home/covid/src
+
