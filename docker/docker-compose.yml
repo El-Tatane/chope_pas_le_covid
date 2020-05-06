@@ -1,0 +1,13 @@
+version: '3'
+services:
+  notebook:
+    container_name: python_notebook
+    labels:
+      description: Intel Python 2 using Jupyter Notebooks
+      name: jupyter notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - D:\data\covid:/home/dataset
+      - D:\CloudStation\Cours\4ISD\projet_covid:/home/notebook
+    build: .
