@@ -3,7 +3,7 @@
 - docker-compose
 
 # Quick starter
-1. Modifier les variables dans le fichier .env
+1. Copier le fichier .env-dist en .env puis modifier les variables dans le fichier .env
 
 2. Lancer le conteneur
     cd docker
