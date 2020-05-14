@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_simple_sir(list_S, list_I, list_R, list_t):
+def plot_simple_sir(list_t, list_S, list_I, list_R ):
     # Plot the data on three separate curves for S(t), I(t) and R(t)
     fig = plt.figure()
     ax = fig.add_subplot(facecolor='#dddddd')
@@ -22,7 +22,7 @@ def plot_simple_sir(list_S, list_I, list_R, list_t):
     plt.show()
 
 
-def plot_triple_sir(list_predict_S, list_predict_I, list_predict_R, list_true_S, list_true_I, list_true_R, list_t):
+def plot_triple_sir(list_t, list_predict_S, list_predict_I, list_predict_R, list_true_S, list_true_I, list_true_R ):
     list_label = ["Susceptible", "Infected", "Recovered with immunity"]
     for (list_pred, list_true), tilte in zip([[list_predict_S, list_true_S], [list_predict_I, list_true_I], [list_predict_R, list_true_R]], list_label):
             fig = plt.figure()

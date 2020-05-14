@@ -1,6 +1,23 @@
-1. Modify path in docker-compose.yml
+# Need
+- docker
+- docker-compose
 
-2. Launch contener
+# Quick starter
+1. Modifier les variables dans le fichier .env
+
+2. Lancer le conteneur
     cd docker
     docker-compose build
     docker-compose up
+
+3. Entrer dans le conteneur
+    commande :
+        docker exec -it [CONTAINER_NAME] bash
+    avec les paramètres par defaut :
+        docker exec -it covid bash
+
+# Lancer les tests
+Exécuter le script /scripts/pytest.sh
+
+# Warning
+Exécuter le code hors du conteneur peut entrainer des problèmes d'import dans notre code ou d'incompatibilité de version

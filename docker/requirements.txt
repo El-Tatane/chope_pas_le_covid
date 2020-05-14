@@ -1,5 +1,6 @@
-seaborn
-pandas
-matplotlib
-pandas-profiling
-scipy
+seaborn==0.10.1
+pandas==1.0.3
+matplotlib==3.2.1
+pandas-profiling==2.8.0
+scipy==1.4.1
+pytest==5.4.2

@@ -7,5 +7,8 @@ COPY requirements.txt tmp/requirements.txt
 
 RUN pip3 install -r tmp/requirements.txt
 
+RUN ln -s /home/covid/src/my_framework/ /usr/lib/python3/dist-packages/
+
+WORKDIR /home/covid/src
 # Run shell command for notebook on start
 CMD jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='' --NotebookApp.password=''
