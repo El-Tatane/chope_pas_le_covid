@@ -20,15 +20,14 @@ class SIRModel():
         self.params["gamma"] = gamma
 
     def get_SIR_0(self, I_0, N):
-        I_0 = 1     # Pourquoi cela doit commencer par 1 ?
         R_0 = 0
         S_0 = N - I_0 - R_0
         SIR_0 = S_0, I_0, R_0
         return SIR_0
 
-    def fit(self, y, N):
+    def fit(self, y, N, I_0):
         t = np.linspace(0, len(y), len(y))
-        SIR_0 = self.get_SIR_0(y[0], N)
+        SIR_0 = self.get_SIR_0(I_0, N)
 
         f = lambda t, beta, gamma : (odeint(self.deriv, SIR_0, t, args=(N, beta, gamma)).T)[1]
 
