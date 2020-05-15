@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_simple_sir(list_t, list_S, list_I, list_R ):
+def plot_simple_sir(list_t, list_S, list_I, list_R, title=None):
     # Plot the data on three separate curves for S(t), I(t) and R(t)
     fig = plt.figure()
     ax = fig.add_subplot(facecolor='#dddddd')
@@ -19,6 +19,8 @@ def plot_simple_sir(list_t, list_S, list_I, list_R ):
     legend.get_frame().set_alpha(0.5)
     for spine in ('top', 'right', 'bottom', 'left'):
         ax.spines[spine].set_visible(False)
+    if title is not None:
+        fig.suptitle(title)
     plt.show()
 
 

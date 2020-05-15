@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp, odeint
 from scipy.optimize import curve_fit
-import matplotlib.pyplot as plt
+
 
 class SIRModel():
     """
@@ -25,7 +26,13 @@ class SIRModel():
         SIR_0 = S_0, I_0, R_0
         return SIR_0
 
-    def fit(self, y, N):
+    def fit(self, N, I, R=None):
+        if R is None:
+            return self.fit_I(I, N)
+        else:
+            return self.fit_IR(I, R, N)
+
+    def fit_I(self, y, N):
         if y[0] == 0 : raise ValueError("Need an infected at the beginning")
         t = np.linspace(0, len(y), len(y))
         SIR_0 = self.get_SIR_0(N, y[0])
@@ -37,6 +44,19 @@ class SIRModel():
         self.params["gamma"] = params[1]
         return params, covariance
 
+    def fit_IR(self, I, R, N):
+        if I[0] == 0 : raise ValueError("Need an infected at the beginning")
+        t = np.linspace(0, len(I)*2, len(I)* 2)
+        y = np.hstack((I, R))
+
+        SIR_0 = self.get_SIR_0(N, I[0])
+
+        f = lambda t, beta, gamma : np.hstack((odeint(self.deriv, SIR_0, t, args=(N, beta, gamma)).T)[1:2])
+
+        params, covariance = curve_fit(f, t, y)
+        self.params["beta"] = params[0]
+        self.params["gamma"] = params[1]
+        return params, covariance
 
     def deriv(self, y, t, N, beta, gamma):
         S, I, R = y
