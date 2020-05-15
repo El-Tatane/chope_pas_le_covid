@@ -50,4 +50,11 @@ def get_dataset(country):
     df_confirm = filter_by_country(clean_useless_columns_and_reset_idx(get_confirm_df()), country)
     df_death = filter_by_country(clean_useless_columns_and_reset_idx(get_death_df()), country)
     df_recover = filter_by_country(clean_useless_columns_and_reset_idx(get_recover_df()), country)
-    return join_df_confirm_recover_death(df_confirm, df_recover, df_death),  get_number_population(get_info_population_df(), country)
+    return delete_first_row(join_df_confirm_recover_death(df_confirm, df_recover, df_death)),  get_number_population(get_info_population_df(), country)
+
+
+def delete_first_row(df, value=0, column_name="confirm"):
+    i = 0
+    while df[column_name][i] == value:
+        i += 1
+    return df.iloc[i:]

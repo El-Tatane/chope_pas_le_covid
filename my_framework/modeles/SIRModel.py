@@ -19,15 +19,16 @@ class SIRModel():
         self.params["beta"] = beta
         self.params["gamma"] = gamma
 
-    def get_SIR_0(self, I_0, N):
+    def get_SIR_0(self, N, I_0):
         R_0 = 0
         S_0 = N - I_0 - R_0
         SIR_0 = S_0, I_0, R_0
         return SIR_0
 
-    def fit(self, y, N, I_0):
+    def fit(self, y, N):
+        if y[0] == 0 : raise ValueError("Need an infected at the beginning") 
         t = np.linspace(0, len(y), len(y))
-        SIR_0 = self.get_SIR_0(I_0, N)
+        SIR_0 = self.get_SIR_0(N, y[0])
 
         f = lambda t, beta, gamma : (odeint(self.deriv, SIR_0, t, args=(N, beta, gamma)).T)[1]
 
@@ -44,8 +45,8 @@ class SIRModel():
         dRdt = gamma * I
         return dSdt, dIdt, dRdt
 
-    def predict(self, t, N, I_0):
+    def predict(self, t, N, I_0=1):
         # t_inter = (min(t), max(t))
-        SIR_0 = self.get_SIR_0(I_0, N)
+        SIR_0 = self.get_SIR_0(N, y[0])
         res = odeint(self.deriv, SIR_0, t, args=(N, self.params["beta"], self.params["gamma"]))
         return res.T

@@ -21,16 +21,15 @@ class SEIRModel():
         self.params["gamma"] = gamma
         self.params["delta"] = delta
 
-    def get_SEIR_0(self, I_0, N):
-        R_0, I_0 = 0, 0
+    def get_SEIR_0(self, N, I_0, E_0, R_0=0):
         S_0 = N - E_0 - I_0 - R_0
         SEIR_0 = S_0, E_0, I_0, R_0
         return SEIR_0
 
-    def fit(self, y, N, E_0):
+    def fit(self, y, N, E_0=1):
         t = np.linspace(0, len(y), len(y))
 
-        SEIR_0 = self.get_SEIR_0(E_0, N)
+        SEIR_0 = self.get_SEIR_0(N, y[0], E_0)
 
         f = lambda t, beta, gamma, delta : (odeint(self.deriv, SEIR_0, t, args=(N, beta, gamma, delta)).T)[2]
 
@@ -48,7 +47,7 @@ class SEIRModel():
         dRdt = gamma * I
         return dSdt, dEdt, dIdt, dRdt
 
-    def predict(self, t, N, E_0):
-        SEIR_0 = self.get_SEIR_0(E_0, N)
+    def predict(self, t, N, I_0=1, E_0=1):
+        SEIR_0 = self.get_SEIR_0(N, I_0, E_0)
         res = odeint(self.deriv, SEIR_0, t, args=(N, self.params["beta"], self.params["gamma"], self.params["delta"]))
         return res.T
