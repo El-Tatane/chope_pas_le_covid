@@ -26,7 +26,7 @@ class SIRModel():
         return SIR_0
 
     def fit(self, y, N):
-        if y[0] == 0 : raise ValueError("Need an infected at the beginning") 
+        if y[0] == 0 : raise ValueError("Need an infected at the beginning")
         t = np.linspace(0, len(y), len(y))
         SIR_0 = self.get_SIR_0(N, y[0])
 
@@ -47,6 +47,6 @@ class SIRModel():
 
     def predict(self, t, N, I_0=1):
         # t_inter = (min(t), max(t))
-        SIR_0 = self.get_SIR_0(N, y[0])
+        SIR_0 = self.get_SIR_0(N, I_0)
         res = odeint(self.deriv, SIR_0, t, args=(N, self.params["beta"], self.params["gamma"]))
         return res.T

@@ -46,3 +46,31 @@ def test_model_sir_3():
     model_sir.fit(df["I"], pop_size)
     assert abs(model_sir.params["beta"] - result_beta) < 1
     assert abs(model_sir.params["gamma"] - result_gamma) < 1
+
+
+def test_random_modele_sir():
+    # Code juste, mais resultat des modèles pas exceptionnel.
+    success, bad, error = 0, 0, 0
+
+    for i in range(10):
+        try:
+            b_g = np.random.rand(2) * 5
+            beta, gamma = max(b_g), min(b_g)
+            pop_size = np.random.randint(100000, 1000000)
+            day_number = np.random.randint(50, 200)
+            t = np.linspace(0, day_number, day_number)
+            I_0 = 1
+
+            model_data_sir = SIRModel(beta=beta, gamma=gamma)
+            S, I, R = model_data_sir.predict(t, pop_size, I_0)
+
+            model_pred_sir = SIRModel()
+            model_pred_sir.fit(I, pop_size)
+
+            if  abs(model_data_sir.params["beta"] - model_pred_sir.params["beta"] ) < 1.5 and abs(model_data_sir.params["gamma"] - model_pred_sir.params["gamma"]) < 1.5:
+                success += 1
+            else:
+                bad += 1
+        except:
+            error += 1
+    assert bad + error != 10
