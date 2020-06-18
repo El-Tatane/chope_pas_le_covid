@@ -129,12 +129,12 @@ def plot_map(country, death):
             marker = dict(
                 line = dict(color = 'rgb(0,0,0)', width = 1)),
                 colorbar = dict(autotick = True, tickprefix = '',
-                title = '# Average\nTemperature,\n°C')
+                title = 'Death count')
                 )
            ]
 
     layout = dict(
-        title = 'Average land temperature in countries',
+        title = 'Total Death',
         geo = dict(
             showframe = False,
             showocean = True,
