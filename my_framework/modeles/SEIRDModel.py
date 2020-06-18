@@ -52,7 +52,7 @@ class SEIRDModel():
         dDdt = alpha * rho * I
         return dSdt, dEdt, dIdt, dRdt, dDdt
 
-    def predict(self, t, N, I_0=1, E_0=1):
+    def predict(self, t, N, I_0=0, E_0=1):
         SEIRD_0 = self.get_SEIRD_0(N, I_0, E_0)
         res = odeint(self.deriv, SEIRD_0, t, args=(N, self.params["beta"], self.params["gamma"], self.params["delta"],
                                                    self.params["alpha"], self.params["rho"]))

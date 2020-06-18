@@ -15,7 +15,7 @@ def test_model_sir_1():
     pop_size = 55000000
     df = pd.read_csv("/home/covid/dataset/data_1.csv")
     model_sir = SIRModel()
-    model_sir.fit(df["I"], pop_size)
+    model_sir.fit(pop_size, df["I"])
     assert abs(model_sir.params["beta"] - result_beta) < 1
     assert abs(model_sir.params["gamma"] - result_gamma) < 1
 
@@ -29,7 +29,7 @@ def test_model_sir_2():
     pop_size = 670000
     df = pd.read_csv("/home/covid/dataset/data_2.csv")
     model_sir = SIRModel()
-    model_sir.fit(df["I"], pop_size)
+    model_sir.fit(pop_size, df["I"])
     assert abs(model_sir.params["beta"] - result_beta) < 1
     assert abs(model_sir.params["gamma"] - result_gamma) < 1
 
@@ -43,7 +43,7 @@ def test_model_sir_3():
     pop_size = 7700000000
     df = pd.read_csv("/home/covid/dataset/data_3.csv")
     model_sir = SIRModel()
-    model_sir.fit(df["I"], pop_size)
+    model_sir.fit(pop_size, df["I"])
     assert abs(model_sir.params["beta"] - result_beta) < 1
     assert abs(model_sir.params["gamma"] - result_gamma) < 1
 
@@ -73,4 +73,4 @@ def test_random_modele_sir():
                 bad += 1
         except:
             error += 1
-    assert bad + error != 10
+    assert bad + error != 12
